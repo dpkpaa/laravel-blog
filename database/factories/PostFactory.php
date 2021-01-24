@@ -10,6 +10,7 @@ $factory->define(Post::class, function (Faker $faker) {
         'user_id' => 1,
         'title' => $faker->sentence(),
         'body' => $faker->text(),
-        'image_path' => '/photo2.png'
+        'category_id' => 1,
+        'image_path' => 'upload/photo2.png'
     ];
 });

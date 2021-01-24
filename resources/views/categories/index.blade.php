@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Blog Posts</h1>
+          <h1>Categories</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Posts</li>
+            <li class="breadcrumb-item active">categories</li>
           </ol>
         </div>
       </div>
@@ -23,7 +23,7 @@
       
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title"><a href="{{ route('posts.create') }}" class="btn btn-sm btn-primary">Add Post</a></h3>
+      <h3 class="card-title"><a href="{{ route('categories.create') }}" class="btn btn-sm btn-primary">Add Category</a></h3>
 
       <div class="card-tools">
         <div class="input-group input-group-sm" style="width: 150px;">
@@ -43,32 +43,20 @@
         <thead>
           <tr>
             <th>ID</th>
-            <th>Image</th>
-            <th>Posted By</th>
-            <th>Title</th>
-            <th>Category</th>
-            <th>Tags</th>
+            <th>Created By</th>
+            <th>Name</th>
             <th>Created At</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-            @foreach($posts as $post)
+            @foreach($categories as $category)
             <tr>
-                <td>{{$post->id}}</td>
-                <td><img width="70" height="70" src="{{asset($post->image_path)}}" alt="{{$post->name}}"></td>
-                <td>{{ $post->user->name }}</td>
-                <td>{{ $post->title }}</td>
-                <td>{{ $post->category->name }}</td>
-                <td>
-                  @foreach ($post->tags  as $tag)
-                   <span class="badge badge-primary">{{$tag->name}}</span>
-                  @endforeach
-                </td>
-                <td>{{$post->created_at}}</td>
-                <td>
-                  <a href="{{route('posts.edit',$post->id)}}" class="btn btn-success btn-sm" >Edit</a>
-                </td>
+                <td>{{$category->id}}</td>
+                <td>{{ $category->user->name }}</td>
+                <td>{{ $category->name }}</td>
+                <td>{{$category->created_at}}</td>
+                <td></td>
             </tr>
             @endforeach
           
@@ -79,7 +67,7 @@
     
     <!-- /.card-body -->
     <div class="ml-auto mt-4 mr-3" >
-        {!! $posts->links() !!}
+        {!! $categories->links() !!}
     </div>
   </div>
   

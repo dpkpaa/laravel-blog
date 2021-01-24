@@ -5,12 +5,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Add New Post</h1>
+          <h1>Update</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">New Post</li>
+            <li class="breadcrumb-item active">Post update</li>
           </ol>
         </div>
       </div>
@@ -22,11 +22,12 @@
 <div class="card">
     <div class="card-header">
 <div class="card-body">
-      <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+      <form action="{{ route('posts.update',$post->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
         <div class="form-group">
           <label for="title">Title</label>
-          <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror">
+          <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror" value="{{ $post->title }}">
           @error('title')
             <div class="invalid-feedback">
               {{ $message}}
@@ -38,7 +39,7 @@
           <label for="category_id">Category</label>
           <select type="text" name="category_id" id="category_id" class="form-control @error('category_id') is-invalid @enderror">
             @foreach ($categories as $category)
-            <option value="{{$category->id}}">{{$category->name}}</option>
+            <option {{$post->category_id === $category->id ? "selected": ""}} value="{{$category->id}}">{{$category->name}}</option>
             @endforeach
           </select>
           @error('category_id')
@@ -50,9 +51,9 @@
         </div>
         <div class="form-group">
           <label for="tags">Tags</label>
-          <select multiple  type="text" name="tags[]" id="tags" class="tags_select form-control @error('tags') is-invalid @enderror">
+          <select  multiple type="text" name="tags[]" id="tags" class="tags_select form-control @error('tags') is-invalid @enderror">
             @foreach ($tags as $tag)
-            <option value="{{$tag->id}}">{{$tag->name}}</option>
+            <option {{ in_array($tag->id, $post->tags()->pluck('tag_id')->toArray()) ? "selected": "" }}  value="{{$tag->id}}">{{$tag->name}}</option>
             @endforeach
           </select>
           @error('tags')
@@ -64,7 +65,7 @@
         </div>
         <div class="form-group">
           <label for="text-editor">Body</label>
-          <textarea  class="form-control @error('body') is-invalid @enderror" name="body" rows="8" id="text-editor" ></textarea>
+          <textarea  class="form-control @error('body') is-invalid @enderror" name="body" rows="8" id="text-editor" >{{$post->body}}</textarea>
           @error('body')
             <div class="invalid-feedback">
               {{ $message}}

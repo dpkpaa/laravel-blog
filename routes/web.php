@@ -25,4 +25,6 @@ Route::middleware('auth')->prefix('admin')->group(function () {
     // Route::get('/posts', 'PostController@index')->name('posts');
     // Route::get('/posts/add-new', 'PostController@create')->name('posts.create');
     Route::resource('posts', 'PostController');
+    Route::resource('tags', 'TagController');
+    Route::resource('categories', 'CategoryController');
 });
